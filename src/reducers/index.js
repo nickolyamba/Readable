@@ -1,14 +1,24 @@
 import { combineReducers } from 'redux'
 
-import {ADD_POST, EDIT_POST, REMOVE_POST, ADD_COMMENT} from '../actions';
+import {ADD_POST, RECEIVE_POSTS, EDIT_POST, REMOVE_POST} from '../actions/post_actions';
+import {ADD_COMMENT, RECEIVE_COMMENTS, EDIT_COMMENT, REMOVE_COMMENT} from '../actions/comment_actions';
+import {GET_CATEGORIES} from '../actions/category_actions';
 
 const posts = (state={}, action) => {
-    const {title, body, author, timestamp, voteScore, category, deleted, type} = action;
-    switch(type){
+    const {postObj} = action;
+    switch(action.type){
         case ADD_POST:
             return{
                 ...state,
-                [timestamp]: {title, body, author, timestamp, voteScore, category, deleted}
+                'posts': {
+                    ...state['posts'],
+                    postObj
+                }
+            };
+        case RECEIVE_POSTS:
+            const {posts} = action;
+            return {
+                ...state, [posts]: posts
             };
 
         default:
@@ -31,6 +41,18 @@ const comments = (state={}, action) => {
     }
 };
 
+const categories = (state={}, action) => {
+    const {categories} = action;
+    switch(action.type){
+        case GET_CATEGORIES:
+            return {
+                ...state, [categories]: categories
+            };
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
-    posts, comments
+    posts, comments, categories
 })
