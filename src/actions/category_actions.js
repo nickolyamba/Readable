@@ -1,6 +1,7 @@
 import ForumAPI from '../ForumAPI';
 
 const GET_CATEGORIES = 'GET_CATEGORIES';
+const CHANGE_CATEGORY = 'CHANGE_CATEGORY';
 const categoriesEntity = 'categories';
 
 const getCategories = categories => ({
@@ -10,9 +11,14 @@ const getCategories = categories => ({
 
 const fetchCategories = (postId) => dispatch => (
     ForumAPI.getAll(categoriesEntity).then(
-        object => {dispatch(getCategories(object[categoriesEntity])); console.log(object[categoriesEntity])},
+        object => dispatch(getCategories(object[categoriesEntity])),
         error => console.error(error)
     )
 );
 
-export { GET_CATEGORIES, fetchCategories}
+const changeCategory = selectedCategory => ({
+    type: CHANGE_CATEGORY,
+    selectedCategory
+});
+
+export {GET_CATEGORIES, CHANGE_CATEGORY, fetchCategories, changeCategory}

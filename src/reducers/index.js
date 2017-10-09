@@ -2,12 +2,12 @@ import { combineReducers } from 'redux'
 
 import {ADD_POST, RECEIVE_POSTS, EDIT_POST, REMOVE_POST} from '../actions/post_actions';
 import {ADD_COMMENT, RECEIVE_COMMENTS, EDIT_COMMENT, REMOVE_COMMENT} from '../actions/comment_actions';
-import {GET_CATEGORIES} from '../actions/category_actions';
+import {GET_CATEGORIES, CHANGE_CATEGORY} from '../actions/category_actions';
 
 const posts = (state={}, action) => {
-    const {postObj} = action;
     switch(action.type){
         case ADD_POST:
+            const {postObj} = action;
             return{
                 ...state,
                 'posts': {
@@ -15,11 +15,15 @@ const posts = (state={}, action) => {
                     postObj
                 }
             };
+
         case RECEIVE_POSTS:
             const {posts} = action;
-            return {
-                ...state, [posts]: posts
-            };
+            const postsObj = posts.reduce((posts, post) => {
+                posts[post.id] = post;
+                return posts;
+            }, {});
+
+            return {...postsObj};
 
         default:
             return state;
@@ -42,11 +46,16 @@ const comments = (state={}, action) => {
 };
 
 const categories = (state={}, action) => {
-    const {categories} = action;
     switch(action.type){
         case GET_CATEGORIES:
+            const {categories} = action;
             return {
-                ...state, [categories]: categories
+                ...categories, 'selected': 'All'
+            };
+        case CHANGE_CATEGORY:
+            const {selectedCategory} = action;
+            return {
+                ...state, 'selected': selectedCategory
             };
         default:
             return state;
