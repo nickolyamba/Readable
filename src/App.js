@@ -12,7 +12,7 @@ class App extends Component {
           <Header headerText='Readable'/>
           <div className="container">
               <Category/>
-              <PostList classes={{title: ''}}/>
+              <PostList/>
           </div>
       </div>
     );

@@ -1,23 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
-import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import FavoriteIcon from 'material-ui-icons/Favorite';
+import { pink } from 'material-ui/colors';
 
 const styles = theme => ({
     card: {
-        minWidth: 275,
+        cursor: 'pointer',
+        marginBottom: '20px',
+        padding: '0px'
     },
     title: {
-        marginBottom: 16,
-        fontSize: 14,
-        color: theme.palette.text.secondary,
+        fontSize: 18,
+        color: theme.palette.text.secondaryAction,
     },
-    pos: {
-        marginBottom: 12,
-        color: theme.palette.text.secondary,
+    iconPink: {
+        fill: pink[600],
+        margin: '0 3px 0 6px'
     },
+    iconText:{
+        display: 'inline',
+        fontSize: '18px',
+        marginTop: '2px'
+    },
+    container:{
+        display: 'inline-flex',
+        alignItems:'center',
+        marginBottom: '0 20px 10px 0'
+    }
 });
 
 class PostList extends React.Component{
@@ -25,24 +38,39 @@ class PostList extends React.Component{
     render(){
         const {posts, selectedCategory, classes } = this.props;
         return(
-            <Card className={classes.card}>
-                <CardContent>
-                    <Typography type="body1" className={classes.title}>
-                        Word of the Day
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button dense>Learn More</Button>
-                </CardActions>
-            </Card>
+            <div>
+                {posts && posts.map((post, i) => (
+                    (selectedCategory === 'All' || selectedCategory === post.category) &&
+                    <Card className={classes.card} key={i}>
+                        <CardContent>
+                            <Typography type="body1" className={classes.title} noWarp>
+                                {post.title}
+                            </Typography>
+                            <Typography type="body2" color="secondary" noWarp>
+                                {post.body}
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <div className={classes.container}>
+                                <FavoriteIcon className={classes.iconPink}/>
+                                <Typography color="secondary" type="heading" className={classes.iconText}>
+                                    {post.voteScore}
+                                </Typography>
+                            </div>
+                        </CardActions>
+
+
+                    </Card>
+                ))}
+            </div>
         );
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({posts, categories}) => {
   return {
-      posts: Object.values(state.posts),
-      selectedCategory: state.categories.selected
+      posts: Object.values(posts),
+      selectedCategory: categories && categories.selected ? categories.selected : 'All'
   }
 };
 
@@ -58,4 +86,4 @@ PostList.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostList);
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(PostList));
