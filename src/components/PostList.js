@@ -34,26 +34,26 @@ const styles = theme => ({
 });
 
 class PostList extends React.Component{
-
     render(){
-        const {posts, selectedCategory, classes } = this.props;
+        const {posts, classes} = this.props;
+        const selectedCategory = this.props.match.params.category;
         return(
             <div>
                 {posts && posts.map((post, i) => (
-                    (selectedCategory === 'All' || selectedCategory === post.category) &&
+                    (selectedCategory === undefined || selectedCategory === post.category) &&
                     <Card className={classes.card} key={i}>
                         <CardContent>
-                            <Typography type="body1" className={classes.title} noWarp>
+                            <Typography noWrap type="body1" className={classes.title}>
                                 {post.title}
                             </Typography>
-                            <Typography type="body2" color="secondary" noWarp>
+                            <Typography noWrap type="body2" color="secondary">
                                 {post.body}
                             </Typography>
                         </CardContent>
                         <CardActions>
                             <div className={classes.container}>
                                 <FavoriteIcon className={classes.iconPink}/>
-                                <Typography color="secondary" type="heading" className={classes.iconText}>
+                                <Typography color="secondary" type="title" className={classes.iconText}>
                                     {post.voteScore}
                                 </Typography>
                             </div>
@@ -69,8 +69,8 @@ class PostList extends React.Component{
 
 const mapStateToProps = ({posts, categories}) => {
   return {
-      posts: Object.values(posts),
-      selectedCategory: categories && categories.selected ? categories.selected : 'All'
+      posts: posts.entities ? Object.values(posts.entities) : null,
+      sortBy: posts.sortBy
   }
 };
 
