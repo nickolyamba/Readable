@@ -16,9 +16,9 @@ const fetchCategories = (postId) => dispatch => (
     )
 );
 
-const changeCategory = selectedCategory => ({
+const changeCategory = selected => ({
     type: CHANGE_CATEGORY,
-    selectedCategory
+    selected
 });
 
 export {GET_CATEGORIES, CHANGE_CATEGORY, fetchCategories, changeCategory}

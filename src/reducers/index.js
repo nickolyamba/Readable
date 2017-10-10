@@ -23,7 +23,10 @@ const posts = (state={}, action) => {
                 return posts;
             }, {});
 
-            return {...postsObj};
+            return {
+                entities: {...postsObj},
+                sortBy: ''
+            };
 
         default:
             return state;
@@ -49,13 +52,15 @@ const categories = (state={}, action) => {
     switch(action.type){
         case GET_CATEGORIES:
             const {categories} = action;
+            const allCategories = {name: 'all Categories', path: ''};
             return {
-                ...categories, 'selected': 'All'
+                'entities': {allCategories, ...categories}, 'selected': ''
             };
         case CHANGE_CATEGORY:
-            const {selectedCategory} = action;
+            const {selected} = action;
+            console.log(selected);
             return {
-                ...state, 'selected': selectedCategory
+                ...state, 'selected': selected
             };
         default:
             return state;
