@@ -4,6 +4,7 @@ const ADD_POST = 'ADD_POST';
 const EDIT_POST = 'EDIT_POST';
 const RECEIVE_POSTS = 'RECEIVE_POSTS';
 const REMOVE_POST = 'REMOVE_POST';
+const CHANGE_SORT_BY = 'CHANGE_SORT_BY';
 
 const addPost = (postObj) => ({
     type: ADD_POST,
@@ -30,7 +31,12 @@ const fetchPosts = () => dispatch => (
         dispatch(receivePosts(posts)), error => console.error(error))
 );
 
+const changeSortBy = sortBy => ({
+    type: CHANGE_SORT_BY,
+    sortBy
+});
+
 export{
-        ADD_POST, RECEIVE_POSTS, EDIT_POST, REMOVE_POST,
-        addPost, editPost, removePost, fetchPosts
+        ADD_POST, RECEIVE_POSTS, EDIT_POST, REMOVE_POST, CHANGE_SORT_BY,
+        addPost, editPost, removePost, fetchPosts, changeSortBy
 }
