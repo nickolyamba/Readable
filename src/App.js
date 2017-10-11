@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from './components/Header';
 import PostList from './components/PostList';
+import SortControl from './components/SortControl';
 import {Switch, Route } from 'react-router-dom';
 
 /*https://material-ui-1dab0.firebaseapp.com/demos/buttons/*/
@@ -14,6 +15,7 @@ class App extends Component {
             <h3>List of Posts</h3>
           </div>
           <div className="vertical-container">
+              <SortControl sortCategories={{date: 'timestamp', vote: 'voteScore'}}/>
               <Switch>
                   <Route exact path='/' component={PostList}/>
                   <Route path='/:category' component={PostList}/>
