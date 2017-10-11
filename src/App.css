@@ -1,7 +1,7 @@
 .header {
     display: flex;
     flex-direction: row;
-    padding: 10px 0;
+    padding: 10px 20px;
     background: #282a2b;
     margin-bottom: 20px;
 }
@@ -37,4 +37,8 @@
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 20px;
+}
+
+.marginRight20{
+    margin-right: 20px;
 }
