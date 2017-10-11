@@ -5,16 +5,14 @@ import { connect } from 'react-redux';
 import { changeCategory } from '../actions/category_actions';
 
 class Header extends React.Component {
-    state = {selected: this.props.selectedCategory};
-
     render() {
-        const {categories, updateCategory} = this.props;
+        const {categories, updateCategory, selected} = this.props;
         return (
             <nav className="header">
                 {categories && categories.map((category, i) => (
                     <Link to={`/${category.path}`} key={i}
-                          onClick={() => {updateCategory(category.name); this.setState({selected: category.path})}}>
-                        <h1 className={this.state.selected === category.path ? 'activeLink' : null}>{category.name}</h1>
+                          onClick={() => updateCategory(category.path)}>
+                        <h1 className={selected === category.path ? 'activeLink' : null}>{category.name}</h1>
                     </Link>
                 ))}
             </nav>
@@ -24,13 +22,13 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-    headerText: PropTypes.string.isRequired
+    headerText: PropTypes.string
 };
 
 const mapStateToProps = ({categories}) => {
     return {
         categories: categories.entities ? Object.values(categories.entities) : null,
-        selectedCategory: categories.selected ? categories.selected : null
+        selected: categories.selected ? categories.selected : ''
     }
 };
 
