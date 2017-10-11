@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Card, { CardActions, CardContent, CardHeader} from 'material-ui/Card';
+import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import FavoriteIcon from 'material-ui-icons/Favorite';
 import { pink } from 'material-ui/colors';
+import sortBy from 'sort-by';
 
 const styles = theme => ({
     card: {
@@ -37,16 +39,23 @@ class PostList extends React.Component{
     render(){
         const {posts, classes} = this.props;
         const selectedCategory = this.props.match.params.category;
+
         return(
             <div>
                 {posts && posts.map((post, i) => (
                     (selectedCategory === undefined || selectedCategory === post.category) &&
                     <Card className={classes.card} key={i}>
+                        <CardHeader
+                            avatar={
+                                <Avatar aria-label="Recipe" className={classes.avatar}>
+                                    {post.author.length > 0 ? post.author[0].toUpperCase() : '?'}
+                                </Avatar>
+                            }
+                            title={post.title}
+                            subheader={`Posted by ${post.author} on ${new Date(post.timestamp).toLocaleString()}`}
+                        />
                         <CardContent>
-                            <Typography noWrap type="body1" className={classes.title}>
-                                {post.title}
-                            </Typography>
-                            <Typography noWrap type="body2" color="secondary">
+                            <Typography noWrap type="body1" color="secondary">
                                 {post.body}
                             </Typography>
                         </CardContent>
@@ -67,10 +76,19 @@ class PostList extends React.Component{
     }
 }
 
-const mapStateToProps = ({posts, categories}) => {
-  return {
-      posts: posts.entities ? Object.values(posts.entities) : null,
-      sortBy: posts.sortBy
+const getSorted = (posts, sortObj) => {
+    if(posts === null || sortObj === null) return;
+
+    sortObj.isDesc ? posts.sort(sortBy('-'+sortObj.property)) :
+        posts.sort(sortBy(sortObj.property));
+};
+
+const mapStateToProps = ({posts}) => {
+    const postsArray = posts.entities ? Object.values(posts.entities) : null;
+    getSorted(postsArray, posts.sortBy);
+
+    return {
+      posts: postsArray,
   }
 };
 
@@ -81,8 +99,7 @@ function mapDispatchToProps (dispatch) {
 }
 
 PostList.propTypes = {
-    posts: PropTypes.array.isRequired,
-    selectedCategory: PropTypes.string.isRequired,
+    posts: PropTypes.array,
     classes: PropTypes.object.isRequired
 };
 
