@@ -1,5 +1,7 @@
 import ForumAPI from '../ForumAPI';
 
+import {fetchAllComments, getComments} from './comment_actions';
+
 const ADD_POST = 'ADD_POST';
 const EDIT_POST = 'EDIT_POST';
 const RECEIVE_POSTS = 'RECEIVE_POSTS';
@@ -21,14 +23,17 @@ const removePost = ({id}) => ({
     id
 });
 
-const receivePosts = posts => ({
-    type: RECEIVE_POSTS,
-    posts
-});
+const receivePosts = posts => {
+    return{
+        type: RECEIVE_POSTS,
+        posts
+    }
+};
 
-const fetchPosts = () => dispatch => (
-    ForumAPI.getAll('posts').then(posts =>
-        dispatch(receivePosts(posts)), error => console.error(error))
+const fetchPosts = () => (dispatch, getState) => (
+    ForumAPI.getAll('posts')
+        .then(posts => dispatch(receivePosts(posts)), error => console.log(error))
+        .then(action => dispatch(fetchAllComments(action.posts)), error => console.log(error))
 );
 
 const changeSortBy = sortBy => ({
