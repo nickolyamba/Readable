@@ -5,9 +5,9 @@ import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent, CardHeader} from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
-import FavoriteIcon from 'material-ui-icons/Favorite';
 import { pink } from 'material-ui/colors';
 import sortBy from 'sort-by';
+import VotingWidget from './VotingWidget';
 
 const styles = theme => ({
     card: {
@@ -29,9 +29,9 @@ const styles = theme => ({
         marginTop: '2px'
     },
     container:{
-        display: 'inline-flex',
-        alignItems:'center',
-        marginBottom: '0 20px 10px 0'
+        display: 'flex',
+        alignContent:'space-between',
+        maxWidth: '50%'
     }
 });
 
@@ -48,24 +48,20 @@ class PostList extends React.Component{
                         <CardHeader
                             avatar={
                                 <Avatar aria-label="Recipe" className={classes.avatar}>
-                                    {post.author.length > 0 ? post.author[0].toUpperCase() : '?'}
+                                    {post.author && post.author.length > 0 ? post.author[0].toUpperCase() : '?'}
                                 </Avatar>
                             }
                             title={post.title}
                             subheader={`Posted by ${post.author} on ${new Date(post.timestamp).toLocaleString()}`}
-                        />
+                        >
+                        </CardHeader>
                         <CardContent>
                             <Typography noWrap type="body1" color="secondary">
                                 {post.body}
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <div className={classes.container}>
-                                <FavoriteIcon className={classes.iconPink}/>
-                                <Typography color="secondary" type="title" className={classes.iconText}>
-                                    {post.voteScore}
-                                </Typography>
-                            </div>
+                            <VotingWidget entity={post} entityName={'posts'}/>
                         </CardActions>
 
 
