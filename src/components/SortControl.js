@@ -30,7 +30,7 @@ class SortControl extends React.Component{
                 <Typography type="title" gutterBottom align="center" color="secondary">
                     Sort By
                 </Typography>
-                <div className="ctrl-container">
+                <div className="ctrlContainer">
                     {sortProperty && sortCategories && Object.keys(sortCategories).map((category, i) => (
                         <div className="marginRight20" key={i}>
                             <Button className={sortProperty === sortCategories[category] && isDesc ?
