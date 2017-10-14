@@ -51,7 +51,12 @@ export const create = (entityName, object) =>
     }).then(res => res.json());
 
 export const getComments = (postId) =>
-    fetch(`${api}/${postEntity}/${postId}/${commentEntity}`, { headers })
+    fetch(`${api}/${postEntity}/${postId}/${commentEntity}`, {headers})
+        .then(res => res.json())
+        .catch(err => console.error('Error in fetch: \n', err));
+
+export const remove = (entityName, id) =>
+    fetch(`${api}/${entityName}/${id}`, {method:'DELETE', headers})
         .then(res => res.json())
         .catch(err => console.error('Error in fetch: \n', err));
 
