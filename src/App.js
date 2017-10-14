@@ -11,10 +11,10 @@ class App extends Component {
     return (
       <div className="App">
           <Header headerText='Readable'/>
-          <div className="ctrl-container">
+          <div className="ctrlContainer">
             <h3>List of Posts</h3>
           </div>
-          <div className="vertical-container">
+          <div className="verticalContainer">
               <SortControl sortCategories={{date: 'timestamp', vote: 'voteScore'}}/>
               <Switch>
                   <Route exact path='/' component={PostList}/>

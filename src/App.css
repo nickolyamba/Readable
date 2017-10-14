@@ -21,7 +21,7 @@
     margin: 10px;
 }
 
-.vertical-container{
+.verticalContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -30,13 +30,24 @@
     margin-left: auto;
 }
 
-.ctrl-container{
+.ctrlContainer{
     display: flex;
     flex-direction: row;
     justify-content: center;
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 20px;
+}
+
+.containerRight{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.containerSpread{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
 }
 
 .marginRight20{
