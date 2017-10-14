@@ -6,6 +6,7 @@ import {GET_CATEGORIES, CHANGE_CATEGORY} from '../actions/category_actions';
 import {UPDATE_POST_VOTE, UPDATE_COMM_VOTE, REMOVE_POST, REMOVE_COMMENT} from "../actions/common_actions";
 
 const posts = (state={}, action) => {
+    const{entityId} = action;
     switch(action.type){
         case ADD_POST:
             const {postObj} = action;
@@ -36,7 +37,7 @@ const posts = (state={}, action) => {
             };
 
         case UPDATE_POST_VOTE:
-            const{updatedVote, entityId} = action;
+            const{updatedVote} = action;
             return{
                 ...state,
                     'entities': {
@@ -66,9 +67,11 @@ const posts = (state={}, action) => {
 };
 
 const comments = (state={}, action) => {
+    const{entityId} = action;
     switch(action.type){
         case GET_COMMENTS:
             const{comments} = action;
+            if(!comments) return state;
 
             const commentsObj = comments.reduce((commentsComb, comment) => {
                 !commentsComb[comment.parentId] ?
@@ -82,8 +85,8 @@ const comments = (state={}, action) => {
             };
 
         case UPDATE_COMM_VOTE:
-            const{updatedVote, entityId, parentId} = action;
-            console.log('actionUpdate', action)
+            const{updatedVote, parentId} = action;
+            console.log('actionUpdate', action);
             return{
                 ...state,
                 'entities': {
@@ -99,6 +102,33 @@ const comments = (state={}, action) => {
                 }
 
             };
+
+        case REMOVE_POST:
+            const parentPostId = action.entityId;
+            if(!state[parentPostId]){
+                return state;
+            }
+            else {
+                const commentIds = Object.keys(state[parentPostId]);
+                if(commentIds.length <= 0) return state;
+
+                // update comment entities
+                const keysObj = {};
+                for (const commentId of commentIds) {
+                    keysObj[commentId] = {
+                        ...state[parentPostId][commentId],
+                        'parentDeleted': true
+                    }
+                }
+
+                return {
+                    ...state,
+                    [parentPostId]: {
+                        ...state[parentPostId],
+                        ...keysObj
+                    }
+                };
+            }
 
         default:
             return state;

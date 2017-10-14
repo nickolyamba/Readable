@@ -60,4 +60,4 @@ export const remove = (entityName, id) =>
         .then(res => res.json())
         .catch(err => console.error('Error in fetch: \n', err));
 
-export default {getAll, get, getComments, updatePUT, updatePOST}
+export default {getAll, get, getComments, updatePUT, updatePOST, remove}
