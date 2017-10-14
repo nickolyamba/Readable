@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
-import {ADD_POST, RECEIVE_POSTS, EDIT_POST, REMOVE_POST, CHANGE_SORT_BY} from '../actions/post_actions';
-import {ADD_COMMENT, GET_COMMENTS, EDIT_COMMENT, REMOVE_COMMENT} from '../actions/comment_actions';
+import {ADD_POST, RECEIVE_POSTS, EDIT_POST, CHANGE_SORT_BY} from '../actions/post_actions';
+import {ADD_COMMENT, GET_COMMENTS, EDIT_COMMENT} from '../actions/comment_actions';
 import {GET_CATEGORIES, CHANGE_CATEGORY} from '../actions/category_actions';
-import {UPDATE_POST_VOTE, UPDATE_COMM_VOTE} from "../actions/common_actions";
+import {UPDATE_POST_VOTE, UPDATE_COMM_VOTE, REMOVE_POST, REMOVE_COMMENT} from "../actions/common_actions";
 
 const posts = (state={}, action) => {
     switch(action.type){
@@ -46,6 +46,18 @@ const posts = (state={}, action) => {
                             'voteScore': updatedVote
                         }
                     }
+            };
+
+        case REMOVE_POST:
+            return{
+                ...state,
+                'entities': {
+                    ...state.entities,
+                    [entityId]: {
+                        ...state.entities[entityId],
+                        'deleted': true,
+                    }
+                }
             };
 
         default:

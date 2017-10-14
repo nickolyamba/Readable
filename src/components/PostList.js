@@ -5,9 +5,13 @@ import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent, CardHeader} from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
+import IconButton from 'material-ui/IconButton';
+import DeleteIcon from 'material-ui-icons/Delete';
+import EditIcon from 'material-ui-icons/Edit';
 import { pink } from 'material-ui/colors';
 import sortBy from 'sort-by';
 import VotingWidget from './VotingWidget';
+import {deleteEntity} from '../actions/common_actions';
 
 const styles = theme => ({
     card: {
@@ -27,11 +31,6 @@ const styles = theme => ({
         display: 'inline',
         fontSize: '18px',
         marginTop: '2px'
-    },
-    container:{
-        display: 'flex',
-        alignContent:'space-between',
-        maxWidth: '50%'
     }
 });
 
@@ -44,6 +43,7 @@ class PostList extends React.Component{
             <div>
                 {posts && posts.map((post, i) => (
                     (selectedCategory === undefined || selectedCategory === post.category) &&
+                    !(post.deleted || post.parentDeleted) &&
                     <Card className={classes.card} key={i}>
                         <CardHeader
                             avatar={
@@ -51,11 +51,25 @@ class PostList extends React.Component{
                                     {post.author && post.author.length > 0 ? post.author[0].toUpperCase() : '?'}
                                 </Avatar>
                             }
-                            title={post.title}
+                            title={
+                                <div className={'containerSpread'}>
+                                    {post.title ? post.title : 'Comment'}
+                                    <div>
+                                        <IconButton className={classes.button} aria-label="Delete">
+                                            <DeleteIcon />
+                                        </IconButton>
+                                        <IconButton className={classes.button} aria-label="Delete">
+                                            <EditIcon />
+                                        </IconButton>
+                                    </div>
+
+                                </div>
+                            }
                             subheader={`Posted by ${post.author} on ${new Date(post.timestamp).toLocaleString()}`}
                         >
+
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className={'containerSpread'}>
                             <Typography noWrap type="body1" color="secondary">
                                 {post.body}
                             </Typography>
@@ -63,8 +77,6 @@ class PostList extends React.Component{
                         <CardActions>
                             <VotingWidget entity={post} entityName={'posts'}/>
                         </CardActions>
-
-
                     </Card>
                 ))}
             </div>
@@ -90,7 +102,7 @@ const mapStateToProps = ({posts}) => {
 
 function mapDispatchToProps (dispatch) {
     return {
-        //selectCategory: (selectedCategory) => dispatch(changeCategory(selectedCategory))
+        deleteEntity: (entityId, entityName) => dispatch(deleteEntity(entityId, entityName))
     }
 }
 

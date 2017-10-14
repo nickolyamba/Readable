@@ -2,6 +2,8 @@ import ForumAPI from '../ForumAPI';
 
 const UPDATE_POST_VOTE = 'UPDATE_POST_VOTE';
 const UPDATE_COMM_VOTE = 'UPDATE_COMM_VOTE';
+const REMOVE_POST = 'REMOVE_POST';
+const REMOVE_COMMENT = 'REMOVE_COMMENT';
 
 const updateLocalVote = (updatedEntity, entityName) => ({
     type: entityName === 'posts' ? UPDATE_POST_VOTE : UPDATE_COMM_VOTE,
@@ -10,9 +12,22 @@ const updateLocalVote = (updatedEntity, entityName) => ({
     parentId: updatedEntity.parentId
 });
 
+const removeLocalEntity = (updatedEntity, entityName) => ({
+    type: entityName === 'posts' ? REMOVE_POST : REMOVE_COMMENT,
+    entityId: updatedEntity.id
+});
+
 const updateVote = (voteChange, entity, entityName) => (dispatch) => (
     ForumAPI.updatePOST(entityName, entity.id, {option : voteChange})
         .then(updatedEntity => dispatch(updateLocalVote(updatedEntity, entityName)))
 );
 
-export {updateVote, UPDATE_POST_VOTE, UPDATE_COMM_VOTE};
+const deleteEntity = (entityId, entityName) => (dispatch) => (
+    ForumAPI.remove(entityName, entityId)
+        .then(updatedEntity => dispatch(removeLocalEntity(updatedEntity, entityName)))
+);
+
+export {updateVote, deleteEntity,
+        UPDATE_POST_VOTE, UPDATE_COMM_VOTE,
+        REMOVE_POST, REMOVE_COMMENT
+};
