@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './components/Header';
-import PostList from './components/PostList';
+import ItemsList from './components/ItemsList';
 import SortControl from './components/SortControl';
 import {Switch, Route } from 'react-router-dom';
 
@@ -17,8 +17,8 @@ class App extends Component {
           <div className="verticalContainer">
               <SortControl sortCategories={{date: 'timestamp', vote: 'voteScore'}}/>
               <Switch>
-                  <Route exact path='/' component={PostList}/>
-                  <Route path='/:category' component={PostList}/>
+                  <Route exact path='/' render={props => (<ItemsList {...props} entityName={'posts'}/>)}/>
+                  <Route path='/:category' render={props => (<ItemsList {...props} entityName={'posts'}/>)}/>
               </Switch>
           </div>
       </div>

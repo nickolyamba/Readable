@@ -11,7 +11,7 @@ import EditIcon from 'material-ui-icons/Edit';
 import { pink } from 'material-ui/colors';
 import sortBy from 'sort-by';
 import VotingWidget from './VotingWidget';
-import {deleteEntity} from '../actions/common_actions';
+import {deleteEntity, editEntity} from '../actions/common_actions';
 
 const styles = theme => ({
     card: {
@@ -34,9 +34,9 @@ const styles = theme => ({
     }
 });
 
-class PostList extends React.Component{
+class ItemsList extends React.Component{
     render(){
-        const {posts, classes} = this.props;
+        const {posts, entityName, classes, deleteEntity, editEntity} = this.props;
         const selectedCategory = this.props.match.params.category;
 
         return(
@@ -55,10 +55,10 @@ class PostList extends React.Component{
                                 <div className={'containerSpread'}>
                                     {post.title ? post.title : 'Comment'}
                                     <div>
-                                        <IconButton className={classes.button} aria-label="Delete">
+                                        <IconButton className={classes.button} onClick={()=>deleteEntity(post.id, entityName)} aria-label="Delete">
                                             <DeleteIcon />
                                         </IconButton>
-                                        <IconButton className={classes.button} aria-label="Delete">
+                                        <IconButton className={classes.button} aria-label="Edit">
                                             <EditIcon />
                                         </IconButton>
                                     </div>
@@ -75,7 +75,7 @@ class PostList extends React.Component{
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <VotingWidget entity={post} entityName={'posts'}/>
+                            <VotingWidget entity={post} entityName={entityName}/>
                         </CardActions>
                     </Card>
                 ))}
@@ -91,7 +91,7 @@ const getSorted = (posts, sortObj) => {
         posts.sort(sortBy(sortObj.property));
 };
 
-const mapStateToProps = ({posts}) => {
+const mapStateToProps = ({posts}, ownProps) => {
     const postsArray = posts.entities ? Object.values(posts.entities) : null;
     getSorted(postsArray, posts.sortBy);
 
@@ -100,15 +100,15 @@ const mapStateToProps = ({posts}) => {
   }
 };
 
-function mapDispatchToProps (dispatch) {
-    return {
-        deleteEntity: (entityId, entityName) => dispatch(deleteEntity(entityId, entityName))
-    }
-}
+const mapDispatchToProps = (dispatch) => ({
+    deleteEntity: (entityId, entityName) => dispatch(deleteEntity(entityId, entityName)),
+    editEntity: (entityId, entityName) => dispatch(editEntity(entityId, entityName))
+});
 
-PostList.propTypes = {
+ItemsList.propTypes = {
     posts: PropTypes.array,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    entityName: PropTypes.string.isRequired
 };
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(PostList));
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(ItemsList));
