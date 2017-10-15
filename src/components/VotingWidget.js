@@ -1,33 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import ThumbUp from 'material-ui-icons/ThumbUp';
 import ThumbDown from 'material-ui-icons/ThumbDown';
 import {updateVote} from '../actions/common_actions';
 
-const styles = theme => ({
-    iconText:{
-        display: 'inline',
-        fontSize: '18px',
-    },
-    container:{
-        display: 'inline-flex',
-        alignItems:'center',
-    }
-});
-
 class VotingWidget extends React.Component {
     render() {
-        const {entity, entityName, updateVoteScore, classes} = this.props;
+        const {entity, entityName, updateVoteScore} = this.props;
         return (
-            <div className={classes.container}>
+            <div className="containerLeft">
                 <IconButton aria-label="Thumb Up">
                     <ThumbUp onClick={()=>updateVoteScore('upVote', entity, entityName)}/>
                 </IconButton>
-                <Typography color="secondary" type="title" className={classes.iconText}>
+                <Typography color="secondary" type="title" className="iconText">
                     {entity.voteScore}
                 </Typography>
                 <IconButton aria-label="Thumb Down">
@@ -58,4 +46,4 @@ function mapDispatchToProps (dispatch) {
     }
 }
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(VotingWidget));
+export default connect(mapStateToProps, mapDispatchToProps)(VotingWidget);

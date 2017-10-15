@@ -42,6 +42,13 @@
 .containerRight{
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+}
+
+.containerLeft{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .containerSpread{
@@ -56,4 +63,8 @@
 
 .marginRight10{
     margin-right: 10px;
+}
+
+.iconText{
+    font-size: 18px !important;
 }
