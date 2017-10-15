@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ItemsList from './ItemsList';
 import SortControl from './SortControl';
+import PropTypes from 'prop-types';
 
 class Posts extends Component {
     render(){
@@ -15,6 +16,11 @@ class Posts extends Component {
 }
 
 Posts.propTypes = {
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+            category: PropTypes.string.isRequired
+        })
+    })
 };
 
 export default Posts;
