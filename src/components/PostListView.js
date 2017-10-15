@@ -3,7 +3,7 @@ import ItemsList from './ItemsList';
 import SortControl from './SortControl';
 import PropTypes from 'prop-types';
 
-class Posts extends Component {
+class PostListView extends Component {
     render(){
         const selectedCategory = this.props.match.params.category;
         return (
@@ -15,12 +15,12 @@ class Posts extends Component {
     }
 }
 
-Posts.propTypes = {
+PostListView.propTypes = {
     match: PropTypes.shape({
         params: PropTypes.shape({
-            category: PropTypes.string.isRequired
+            category: PropTypes.string
         })
     })
 };
 
-export default Posts;
+export default PostListView;
