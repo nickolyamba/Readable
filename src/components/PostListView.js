@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import EntryList from './EntryList';
+import PostList from './PostList';
 import SortControl from './SortControl';
 import PropTypes from 'prop-types';
 
@@ -9,7 +9,7 @@ class PostListView extends Component {
         return (
             <div>
                 <SortControl sortCategories={{date: 'timestamp', vote: 'voteScore'}}/>
-                <EntryList entityName={'posts'} selectedCategory={selectedCategory}/>
+                <PostList selectedCategory={selectedCategory}/>
             </div>
         );
     }
