@@ -11,7 +11,7 @@ class VotingWidget extends React.Component {
     render() {
         const {entity, entityName, updateVoteScore} = this.props;
         return (
-            <div className="containerLeft">
+            <div className="containerLeft marginRight20">
                 <IconButton aria-label="Thumb Up">
                     <ThumbUp onClick={()=>updateVoteScore('upVote', entity, entityName)}/>
                 </IconButton>
