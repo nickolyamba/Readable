@@ -11,6 +11,7 @@ import EditIcon from 'material-ui-icons/Edit';
 import { pink } from 'material-ui/colors';
 import sortBy from 'sort-by';
 import VotingWidget from './VotingWidget';
+import CommentsCount from './CommentsCount';
 import {deleteEntity, editEntity} from '../actions/common_actions';
 
 const styles = theme => ({
@@ -69,13 +70,16 @@ class ItemsList extends React.Component{
                         >
 
                         </CardHeader>
-                        <CardContent className={'containerSpread'}>
+                        <CardContent>
                             <Typography noWrap type="body1" color="secondary">
                                 {post.body}
                             </Typography>
                         </CardContent>
-                        <CardActions>
+                        <CardActions className="containerLeft">
                             <VotingWidget entity={post} entityName={entityName}/>
+                            {entityName === 'posts' &&
+                                <CommentsCount postId={post.id}/>
+                            }
                         </CardActions>
                     </Card>
                 ))}
