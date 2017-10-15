@@ -27,7 +27,7 @@ const posts = (state={}, action) => {
 
             return {
                 entities: {...postsObj},
-                sortBy: {property: 'timestamp', isDesc: true}
+                sortBy: {property: 'voteScore', isDesc: true}
             };
 
         case CHANGE_SORT_BY:
