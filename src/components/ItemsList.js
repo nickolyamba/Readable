@@ -37,8 +37,7 @@ const styles = theme => ({
 
 class ItemsList extends React.Component{
     render(){
-        const {posts, entityName, classes, deleteEntity, editEntity} = this.props;
-        const selectedCategory = this.props.match.params.category;
+        const {posts, entityName, classes, selectedCategory, deleteEntity, editEntity} = this.props;
 
         return(
             <div>
