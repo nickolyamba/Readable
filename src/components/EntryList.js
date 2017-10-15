@@ -35,7 +35,7 @@ const styles = theme => ({
     }
 });
 
-class ItemsList extends React.Component{
+class EntryList extends React.Component{
     render(){
         const {posts, entityName, classes, selectedCategory, deleteEntity, editEntity} = this.props;
 
@@ -108,10 +108,10 @@ const mapDispatchToProps = (dispatch) => ({
     editEntity: (entityId, entityName) => dispatch(editEntity(entityId, entityName))
 });
 
-ItemsList.propTypes = {
+EntryList.propTypes = {
     posts: PropTypes.array,
     classes: PropTypes.object.isRequired,
     entityName: PropTypes.string.isRequired
 };
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(ItemsList));
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(EntryList));
