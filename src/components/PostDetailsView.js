@@ -16,7 +16,7 @@ class PostDetailsView extends Component {
         const {post} = this.props;
         return (
             <div>
-                {post &&
+                {post && !post.deleted &&
                 <div>
                     <Entry entry={post} entityName={'posts'} isDetailsView/>
                     <Typography type="title" gutterBottom align="center" color="secondary">

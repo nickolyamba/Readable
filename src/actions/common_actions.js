@@ -16,7 +16,8 @@ const updateLocalVote = (updatedEntity, entityName) => ({
 
 const removeLocalEntity = (updatedEntity, entityName) => ({
     type: entityName === 'posts' ? REMOVE_POST : REMOVE_COMMENT,
-    entityId: updatedEntity.id
+    entityId: updatedEntity.id,
+    parentId: updatedEntity.parentId ? updatedEntity.parentId : null
 });
 
 const updateVote = (voteChange, entity, entityName) => (dispatch) => (

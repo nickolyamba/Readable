@@ -22,6 +22,7 @@ class CommentList extends React.Component{
 
 const mapStateToProps = ({comments}, ownProps) => {
     const {postId} = ownProps;
+    if(postId === null) return {comments: null};
     const postComments = comments[postId] ? Object.values(comments[postId]) : null;
     getSorted(postComments, defaultSort);
 
@@ -32,7 +33,7 @@ const mapStateToProps = ({comments}, ownProps) => {
 
 
 CommentList.propTypes = {
-    postId: PropTypes.string.isRequired,
+    postId: PropTypes.string,
     comments: PropTypes.array
 };
 

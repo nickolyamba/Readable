@@ -67,7 +67,7 @@ const posts = (state={}, action) => {
 };
 
 const comments = (state={}, action) => {
-    const{entityId} = action;
+    const{entityId, parentId} = action;
     switch(action.type){
         case GET_COMMENTS:
             const{comments} = action;
@@ -85,8 +85,7 @@ const comments = (state={}, action) => {
             };
 
         case UPDATE_COMM_VOTE:
-            const{updatedVote, parentId} = action;
-            console.log('actionUpdate', action, state);
+            const{updatedVote} = action;
             return{
                 ...state,
                     [parentId]: {
@@ -124,6 +123,18 @@ const comments = (state={}, action) => {
                     }
                 };
             }
+
+        case REMOVE_COMMENT:
+            return{
+                ...state,
+                [parentId]: {
+                    ...state[parentId],
+                    [entityId]: {
+                        ...state[parentId][entityId],
+                        'deleted': true
+                    }
+                }
+            };
 
         default:
             return state;
