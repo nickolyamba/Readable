@@ -86,21 +86,16 @@ const comments = (state={}, action) => {
 
         case UPDATE_COMM_VOTE:
             const{updatedVote, parentId} = action;
-            console.log('actionUpdate', action);
+            console.log('actionUpdate', action, state);
             return{
                 ...state,
-                'entities': {
-                    ...state.entities,
                     [parentId]: {
-                        ...state.entities.parentId,
+                        ...state[parentId],
                         [entityId]: {
-                            ...state.entities.parentId.entityId,
+                            ...state[parentId][entityId],
                             'voteScore': updatedVote
                         }
-
                     }
-                }
-
             };
 
         case REMOVE_POST:
