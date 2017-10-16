@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import sortBy from 'sort-by';
 import Entry from './Entry';
+import {getSorted} from "../utils/sortUtil";
 
 class PostList extends React.Component{
     render(){
@@ -19,13 +19,6 @@ class PostList extends React.Component{
         );
     }
 }
-
-const getSorted = (posts, sortObj) => {
-    if(posts === null || sortObj === null) return;
-
-    sortObj.isDesc ? posts.sort(sortBy('-'+sortObj.property)) :
-        posts.sort(sortBy(sortObj.property));
-};
 
 const mapStateToProps = ({posts}) => {
     const postsArray = posts.entities ? Object.values(posts.entities) : null;
