@@ -7,11 +7,13 @@ import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui-icons/Delete';
+import Forward from 'material-ui-icons/Forward';
 import EditIcon from 'material-ui-icons/Edit';
 import { pink } from 'material-ui/colors';
 import VotingWidget from './VotingWidget';
 import CommentsCount from './CommentsCount';
 import {deleteEntity, editEntity} from '../actions/common_actions';
+import { Link } from 'react-router-dom'
 
 const styles = theme => ({
     card: {
@@ -36,10 +38,10 @@ const styles = theme => ({
 
 class Entry extends React.Component{
     render(){
-        const {entry, entityName, classes, deleteEntity, editEntity} = this.props;
-
+        const {entry, entityName, isDetailsView, classes, deleteEntity, editEntity} = this.props;
         return(
             <div>
+                {entry &&
                 <Card className={classes.card}>
                     <CardHeader
                         avatar={
@@ -51,18 +53,18 @@ class Entry extends React.Component{
                             <div className={'containerSpread'}>
                                 {entry.title ? entry.title : 'Comment'}
                                 <div>
-                                    <IconButton className={classes.button} onClick={()=>deleteEntity(entry.id, entityName)} aria-label="Delete">
-                                        <DeleteIcon />
+                                    <IconButton className={classes.button}
+                                                onClick={() => deleteEntity(entry.id, entityName)} aria-label="Delete">
+                                        <DeleteIcon/>
                                     </IconButton>
                                     <IconButton className={classes.button} aria-label="Edit">
-                                        <EditIcon />
+                                        <EditIcon/>
                                     </IconButton>
                                 </div>
 
                             </div>
                         }
-                        subheader={`Posted by ${entry.author} on ${new Date(entry.timestamp).toLocaleString()}`}
-                    >
+                        subheader={`Posted by ${entry.author} on ${new Date(entry.timestamp).toLocaleString()}`}>
 
                     </CardHeader>
                     <CardContent>
@@ -70,21 +72,27 @@ class Entry extends React.Component{
                             {entry.body}
                         </Typography>
                     </CardContent>
-                    <CardActions className="containerLeft">
-                        <VotingWidget entity={entry} entityName={entityName}/>
-                        {entityName === 'posts' &&
-                        <CommentsCount postId={entry.id}/>
+                    <CardActions className="containerSpread">
+                        <div>
+                            <VotingWidget entity={entry} entityName={entityName}/>
+                            {entityName === 'posts' && <CommentsCount postId={entry.id}/>}
+                        </div>
+
+                        {entityName === 'posts' && !isDetailsView &&
+                        <Link to={`/${entry.category}/${entry.id}`}>
+                            <IconButton className={classes.button} aria-label="Post Details">
+                                <Forward/>
+                            </IconButton>
+                        </Link>
                         }
                     </CardActions>
                 </Card>
+                }
             </div>
+
         );
     }
 }
-
-const mapStateToProps = ({posts}, ownProps) => {
-
-};
 
 const mapDispatchToProps = (dispatch) => ({
     deleteEntity: (entityId, entityName) => dispatch(deleteEntity(entityId, entityName)),
@@ -92,9 +100,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Entry.propTypes = {
-    entry: PropTypes.object.isRequired,
+    entry: PropTypes.object,
     classes: PropTypes.object.isRequired,
-    entityName: PropTypes.string.isRequired
+    entityName: PropTypes.string.isRequired,
+    isDetailsView: PropTypes.bool.isRequired
 };
 
 export default withStyles(styles)(connect(null, mapDispatchToProps)(Entry));

@@ -13,7 +13,7 @@ class PostList extends React.Component{
                 {posts && posts.map(post => (
                     !post.deleted &&
                     (selectedCategory === undefined || selectedCategory === post.category) &&
-                    <Entry entry={post} entityName={'posts'} key={post.id}/>
+                        <Entry entry={post} entityName={'posts'} isDetailsView={false} key={post.id}/>
                 ))}
             </div>
         );
