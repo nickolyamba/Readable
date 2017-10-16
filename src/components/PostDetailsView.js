@@ -4,8 +4,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Typography from 'material-ui/Typography';
 import CommentList from './CommentList'
+import { changeCategory } from '../actions/category_actions';
 
 class PostDetailsView extends Component {
+    componentDidMount(){
+        const {post, updateCategory} = this.props;
+        post && updateCategory(post.category);
+    }
+
     render(){
         const {post} = this.props;
         return (
@@ -30,11 +36,18 @@ PostDetailsView.propTypes = {
             postId: PropTypes.string.isRequired
         })
     }),
-    post: PropTypes.object
+    post: PropTypes.object,
+    updateCategory: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({posts}, ownProps) => ({
     post: posts.entities ? posts.entities[ownProps.match.params.postId] : null
 });
 
-export default connect(mapStateToProps)(PostDetailsView);
+const mapDispatchToProps = dispatch => {
+    return {
+        updateCategory: (selectedCategory) => dispatch(changeCategory(selectedCategory))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetailsView);
