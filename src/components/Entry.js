@@ -45,7 +45,7 @@ class Entry extends React.Component{
                 <Card className={classes.card}>
                     <CardHeader
                         avatar={
-                            <Avatar aria-label="Recipe" className={classes.avatar}>
+                            <Avatar className={classes.avatar}>
                                 {entry.author && entry.author.length > 0 ? entry.author[0].toUpperCase() : '?'}
                             </Avatar>
                         }
@@ -68,7 +68,7 @@ class Entry extends React.Component{
 
                     </CardHeader>
                     <CardContent>
-                        <Typography noWrap type="body1" color="secondary">
+                        <Typography noWrap={isDetailsView} type="body1" color="secondary">
                             {entry.body}
                         </Typography>
                     </CardContent>
