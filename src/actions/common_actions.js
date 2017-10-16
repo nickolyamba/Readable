@@ -6,6 +6,8 @@ const REMOVE_POST = 'REMOVE_POST';
 const REMOVE_COMMENT = 'REMOVE_COMMENT';
 const EDIT_POST = 'EDIT_POST';
 const EDIT_COMMENT = 'EDIT_COMMENT';
+const ADD_POST = 'ADD_POST';
+const ADD_COMMENT = 'ADD_COMMENT';
 
 const updateLocalVote = (updatedEntity, entityName) => ({
     type: entityName === 'posts' ? UPDATE_POST_VOTE : UPDATE_COMM_VOTE,
@@ -20,6 +22,11 @@ const removeLocalEntity = (updatedEntity, entityName) => ({
     parentId: updatedEntity.parentId ? updatedEntity.parentId : null
 });
 
+const createLocalEntity = (newEntity, entityName) => ({
+    type: entityName === 'posts' ? ADD_POST : ADD_COMMENT,
+    entity: newEntity,
+});
+
 const updateVote = (voteChange, entity, entityName) => (dispatch) => (
     ForumAPI.updatePOST(entityName, entity.id, {option : voteChange})
         .then(updatedEntity => dispatch(updateLocalVote(updatedEntity, entityName)))
@@ -30,12 +37,19 @@ const deleteEntity = (entityId, entityName) => (dispatch) => (
         .then(updatedEntity => dispatch(removeLocalEntity(updatedEntity, entityName)))
 );
 
+const creteEntity = (entity, entityName) => (dispatch) => (
+
+    ForumAPI.create(entityName, entity)
+        .then(updatedEntity => dispatch(createLocalEntity(updatedEntity, entityName)))
+);
+
 const editEntity = (entityId, entityName) => (dispatch) => (
     {}
 );
 
-export {updateVote, deleteEntity, editEntity,
+export {updateVote, deleteEntity, editEntity, creteEntity,
         UPDATE_POST_VOTE, UPDATE_COMM_VOTE,
         REMOVE_POST, REMOVE_COMMENT,
-        EDIT_POST, EDIT_COMMENT
+        EDIT_POST, EDIT_COMMENT,
+        ADD_POST, ADD_COMMENT
 };
