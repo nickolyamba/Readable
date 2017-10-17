@@ -38,7 +38,6 @@ const deleteEntity = (entityId, entityName) => (dispatch) => (
 );
 
 const creteEntity = (entity, entityName) => (dispatch) => (
-
     ForumAPI.create(entityName, entity)
         .then(updatedEntity => dispatch(createLocalEntity(updatedEntity, entityName)))
 );

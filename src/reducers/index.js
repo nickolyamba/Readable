@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
 
-import {ADD_POST, RECEIVE_POSTS, EDIT_POST, CHANGE_SORT_BY} from '../actions/post_actions';
-import {ADD_COMMENT, GET_COMMENTS, EDIT_COMMENT} from '../actions/comment_actions';
+import {RECEIVE_POSTS, EDIT_POST, CHANGE_SORT_BY} from '../actions/post_actions';
+import {GET_COMMENTS} from '../actions/comment_actions';
 import {GET_CATEGORIES, CHANGE_CATEGORY} from '../actions/category_actions';
-import {UPDATE_POST_VOTE, UPDATE_COMM_VOTE, REMOVE_POST, REMOVE_COMMENT} from "../actions/common_actions";
+import {UPDATE_POST_VOTE, UPDATE_COMM_VOTE, REMOVE_POST,
+        REMOVE_COMMENT, ADD_COMMENT, ADD_POST
+} from "../actions/common_actions";
 
 const posts = (state={}, action) => {
     const{entityId} = action;
@@ -123,6 +125,16 @@ const comments = (state={}, action) => {
                     }
                 };
             }
+
+        case ADD_COMMENT:
+            const{entity} = action;
+            return{
+                ...state,
+                [entity.parentId]: {
+                    ...state[entity.parentId],
+                    [entity.id]: entity
+                }
+            };
 
         case REMOVE_COMMENT:
             return{
