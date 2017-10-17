@@ -13,7 +13,7 @@ class CommentList extends React.Component{
             <div>
                 {comments && comments.map(comment => (
                     !comment.deleted && !comment.parentDeleted &&
-                    <Entry entry={comment} entityName={'comments'} isDetailsView={false} key={comment.id}/>
+                    <Entry entry={comment} entityName={'comments'} isDetailsView key={comment.id}/>
                 ))}
             </div>
         );
