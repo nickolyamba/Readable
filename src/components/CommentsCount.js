@@ -26,9 +26,14 @@ CommentsCount.propTypes = {
     postId: PropTypes.string.isRequired
 };
 
+const getCount = (commentsObj) => {
+    return Object.values(commentsObj)
+        .filter(comment => !comment.deleted && !comment.parentDeleted).length;
+};
+
 const mapStateToProps = ({comments}, ownProps) => {
     const {postId} = ownProps;
-    const commentsCount = !!comments && comments[postId] ? Object.keys(comments[postId]).length : 0;
+    const commentsCount = !!comments && comments[postId] ? getCount(comments[postId]) : 0;
     return {
         commentsCount
     }
