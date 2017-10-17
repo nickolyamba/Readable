@@ -20,6 +20,7 @@ const getComments = (comments) => ({
 });
 
 const fetchAllComments = posts => dispatch => {
+    if(!posts) return null;
     const promises = posts.reduce((promises, post)=>{
         const promise = ForumAPI.getComments(post.id);
         promises.push(promise);
@@ -27,8 +28,12 @@ const fetchAllComments = posts => dispatch => {
     }, []);
 
     return Promise.all(promises)
-        .then(comments => dispatch(getComments(...comments)),
-                error => console.error(error))
+        .then(comments => {
+            // flatten 2D array
+            const commArray = [].concat(...comments);
+            dispatch(getComments(commArray))
+            },
+            error => console.error(error))
 };
 
 export{

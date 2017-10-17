@@ -28,7 +28,7 @@ const receivePosts = posts => {
 const fetchPosts = () => (dispatch) => (
     ForumAPI.getAll('posts')
         .then(posts => dispatch(receivePosts(posts)), error => console.log(error))
-        .then(action => dispatch(fetchAllComments(action.posts)), error => console.log(error))
+        .then(action => dispatch(fetchAllComments(action ? action.posts : null)), error => console.log(error))
 );
 
 const changeSortBy = sortBy => ({
