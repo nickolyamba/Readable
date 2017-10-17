@@ -68,7 +68,7 @@ class Entry extends React.Component{
 
                     </CardHeader>
                     <CardContent>
-                        <Typography noWrap={isDetailsView} type="body1" color="secondary">
+                        <Typography noWrap={!isDetailsView} type="body1" color="secondary">
                             {entry.body}
                         </Typography>
                     </CardContent>
