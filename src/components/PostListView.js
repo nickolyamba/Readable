@@ -30,7 +30,7 @@ class PostListView extends Component {
                 <Typography type="title" gutterBottom align="center" color="secondary">
                     List of Posts
                 </Typography>
-                <SortControl sortCategories={{date: 'timestamp', vote: 'voteScore'}}/>
+                <SortControl sortCategories={{vote: 'voteScore', date: 'timestamp'}}/>
                 <div className="containerRight">
                     <Typography type="title" gutterBottom align="center" color="secondary">
                         Add Post
