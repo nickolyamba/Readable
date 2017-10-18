@@ -36,7 +36,6 @@
     justify-content: center;
     margin-right: auto;
     margin-left: auto;
-    margin-bottom: 20px;
 }
 
 .containerRight{
@@ -61,6 +60,14 @@
     margin-right: 20px;
 }
 
+.marginLeft20{
+    margin-left: 20px;
+}
+
+.marginLeft10{
+    margin-left: 10px;
+}
+
 .marginRight10{
     margin-right: 10px;
 }
@@ -71,6 +78,10 @@
 
 .marginTop50{
     margin-top: 40px !important;
+}
+
+.marginTop10{
+    margin-top: 10px !important;
 }
 
 .iconText{
@@ -100,4 +111,8 @@
 .formCard{
     padding: 20px 0;
     margin: 20px 0;
+}
+
+.maxWidth300 {
+    width: 300px;
 }
