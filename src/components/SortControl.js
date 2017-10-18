@@ -7,7 +7,6 @@ import Button from 'material-ui/Button';
 import ArrowUpIcon from 'material-ui-icons/ArrowUpward';
 import ArrowDownIcon from 'material-ui-icons/ArrowDownward';
 import { pink } from 'material-ui/colors';
-import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
     button: {
@@ -27,12 +26,9 @@ class SortControl extends React.Component{
         const {sortProperty, sortCategories, dispatchSelectedSort, isDesc, classes} = this.props;
         return(
             <div>
-                <Typography type="title" gutterBottom align="center" color="secondary">
-                    Sort By
-                </Typography>
                 <div className="ctrlContainer">
                     {sortProperty && sortCategories && Object.keys(sortCategories).map((category, i) => (
-                        <div className="marginRight20" key={i}>
+                        <div key={i}>
                             <Button className={sortProperty === sortCategories[category] && isDesc ?
                                 [classes.button, classes.selected].join(' ') :
                                 classes.button}

@@ -7,7 +7,7 @@ import uuid from 'uuid/v1'
 
 class CommentForm extends React.Component {
     state = {
-        author: '', body: '', title: '', category: ''
+        author: '', body: ''
     };
 
     onFieldChange = name => event => {
@@ -25,17 +25,6 @@ class CommentForm extends React.Component {
             author: this.state.author,
             body: this.state.body,
             parentId: this.props.postId,
-            timestamp: Date.now()
-        }
-    };
-
-    createPost = () => {
-        return{
-            id: uuid(),
-            title: this.state.title,
-            category: this.state.category,
-            author: this.state.author,
-            body: this.state.body,
             timestamp: Date.now()
         }
     };
