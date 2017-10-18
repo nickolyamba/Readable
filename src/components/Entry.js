@@ -7,13 +7,12 @@ import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui-icons/Delete';
-import Forward from 'material-ui-icons/Forward';
 import EditIcon from 'material-ui-icons/Edit';
 import { pink } from 'material-ui/colors';
 import VotingWidget from './VotingWidget';
 import CommentsCount from './CommentsCount';
 import {deleteEntity, editEntity} from '../actions/common_actions';
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 
 const styles = theme => ({
     card: {
@@ -37,21 +36,31 @@ const styles = theme => ({
 });
 
 class Entry extends React.Component{
+    state = {isRedirect: false};
+
+    redirectOnClick = () => {
+        this.setState({isRedirect: true});
+    };
+
     render(){
         const {entry, entityName, isDetailsView, classes, deleteEntity, editEntity} = this.props;
+
+        if(this.state.isRedirect)
+            return <Redirect push to={`/${entry.category}/${entry.id}`}/>;
+
         return(
             <div>
                 {entry &&
                 <Card className={classes.card}>
                     <CardHeader
                         avatar={
-                            <Avatar className={classes.avatar}>
+                            <Avatar className={classes.avatar} onClick={this.redirectOnClick}>
                                 {entry.author && entry.author.length > 0 ? entry.author[0].toUpperCase() : '?'}
                             </Avatar>
                         }
                         title={
-                            <div className={'containerSpread'}>
-                                {entry.title ? entry.title : 'Comment'}
+                            <div className='containerSpread'>
+                                <span onClick={this.redirectOnClick}>{entry.title}</span>
                                 <div>
                                     <IconButton className={classes.button}
                                                 onClick={() => deleteEntity(entry.id, entityName)} aria-label="Delete">
@@ -64,28 +73,24 @@ class Entry extends React.Component{
 
                             </div>
                         }
-                        subheader={`Posted by ${entry.author} on ${new Date(entry.timestamp).toLocaleString()}`}>
+                        subheader = {<span onClick={this.redirectOnClick}>
+                            {`Posted by ${entry.author} on ${new Date(entry.timestamp).toLocaleString()}`}
+                                    </span>}
+                    />
 
-                    </CardHeader>
-                    <CardContent>
-                        <Typography noWrap={!isDetailsView} type="body1" color="secondary">
+                    <CardContent onClick={this.redirectOnClick}>
+                        <Typography noWrap={!isDetailsView} type="body1" color="default">
                             {entry.body}
                         </Typography>
                     </CardContent>
+
                     <CardActions className="containerSpread">
                         <div>
                             <VotingWidget entity={entry} entityName={entityName}/>
                             {entityName === 'posts' && <CommentsCount postId={entry.id}/>}
                         </div>
-
-                        {entityName === 'posts' && !isDetailsView &&
-                        <Link to={`/${entry.category}/${entry.id}`}>
-                            <IconButton className={classes.button} aria-label="Post Details">
-                                <Forward/>
-                            </IconButton>
-                        </Link>
-                        }
                     </CardActions>
+
                 </Card>
                 }
             </div>
