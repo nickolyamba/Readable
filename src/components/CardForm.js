@@ -6,6 +6,7 @@ import CloseIcon from 'material-ui-icons/Close';
 import Card from 'material-ui/Card';
 import {creteEntity} from '../actions/common_actions';
 import CommentForm from './CommentForm';
+import PostForm from './PostForm';
 
 
 class CardForm extends React.Component {
@@ -13,10 +14,10 @@ class CardForm extends React.Component {
     handleSubmitForm = (entity) => {
         if(this.props.parentId){
             entity.parentId = this.props.parentId;
-            this.props.createComment(entity, 'comments')
+            this.props.createNewEntity(entity, 'comments')
         }
         else
-            this.props.createComment(entity, 'posts');
+            this.props.createNewEntity(entity, 'posts');
         this.props.closeCollapse();
     };
 
@@ -35,7 +36,7 @@ class CardForm extends React.Component {
                 </div>
                     {parentId ?
                         <CommentForm onFormSubmit={(comment) => this.handleSubmitForm(comment)}/> :
-                        null
+                        <PostForm onFormSubmit={(post) => this.handleSubmitForm(post)}/>
                     }
             </Card>
         )
@@ -46,12 +47,12 @@ class CardForm extends React.Component {
 CardForm.propTypes = {
     parentId: PropTypes.string,
     closeCollapse: PropTypes.func.isRequired,
-    createComment: PropTypes.func.isRequired
+    createNewEntity: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        createComment: (entity, entityName) => dispatch(creteEntity(entity, entityName))
+        createNewEntity: (entity, entityName) => dispatch(creteEntity(entity, entityName))
     }
 };
 
