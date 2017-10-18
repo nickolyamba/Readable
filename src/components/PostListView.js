@@ -4,19 +4,44 @@ import SortControl from './SortControl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { changeCategory } from '../actions/category_actions';
+import Typography from 'material-ui/Typography';
+import CardForm from './CardForm'
+import Button from 'material-ui/Button';
+import Collapse from 'material-ui/transitions/Collapse';
+import AddIcon from 'material-ui-icons/Add';
 
 class PostListView extends Component {
+    state = {expanded: false};
+
     componentDidMount(){
         const category = this.props.match.params.category ?
             this.props.match.params.category : '';
         this.props.updateCategory(category);
     }
 
+    handleCollapse = () => {
+        this.setState({expanded: !this.state.expanded});
+    };
+
     render(){
         const selectedCategory = this.props.match.params.category;
         return (
             <div>
+                <Typography type="title" gutterBottom align="center" color="secondary">
+                    List of Posts
+                </Typography>
                 <SortControl sortCategories={{date: 'timestamp', vote: 'voteScore'}}/>
+                <div className="containerRight">
+                    <Typography type="title" gutterBottom align="center" color="secondary">
+                        Add Post
+                    </Typography>
+                    <Button fab color='primary' onClick={this.handleCollapse} className="marginLeft10">
+                        <AddIcon/>
+                    </Button>
+                </div>
+                <Collapse in={this.state.expanded} transitionDuration="auto" unmountOnExit>
+                    <CardForm closeCollapse={() => this.handleCollapse()}/>
+                </Collapse>
                 <PostList selectedCategory={selectedCategory}/>
             </div>
         );
