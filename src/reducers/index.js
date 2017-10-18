@@ -11,13 +11,13 @@ const posts = (state={}, action) => {
     const{entityId} = action;
     switch(action.type){
         case ADD_POST:
-            const {postObj} = action;
+            const {entity} = action;
             return{
                 ...state,
-                'posts': {
-                    ...state['posts'],
-                    postObj
-                }
+                'entities': {
+                    ...state.entities,
+                        [entity.id]: entity
+                    }
             };
 
         case RECEIVE_POSTS:
