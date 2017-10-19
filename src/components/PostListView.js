@@ -19,6 +19,7 @@ class PostListView extends Component {
         this.props.updateCategory(category);
     }
 
+    // https://material-ui-next.com/demos/cards/
     handleCollapse = () => {
         this.setState({expanded: !this.state.expanded});
     };
@@ -35,7 +36,7 @@ class PostListView extends Component {
                     <Typography type="title" gutterBottom align="center" color="secondary">
                         Add Post
                     </Typography>
-                    <Button fab color='primary' onClick={this.handleCollapse} className="marginLeft10">
+                    <Button fab color='primary' onClick={this.handleCollapse} className="marginLeft10 marginBottom10">
                         <AddIcon/>
                     </Button>
                 </div>
