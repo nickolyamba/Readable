@@ -12,10 +12,16 @@ import PostForm from './PostForm';
 class CardForm extends React.Component {
 
     handleSubmitForm = (entity) => {
+        if(!entity){
+            this.props.closeCollapse();
+            return;
+        }
+
+        // if comment
         if(this.props.parentId){
             entity.parentId = this.props.parentId;
             this.props.createNewEntity(entity, 'comments')
-        }
+        }//if post
         else
             this.props.createNewEntity(entity, 'posts');
         this.props.closeCollapse();

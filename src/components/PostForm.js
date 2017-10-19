@@ -17,9 +17,11 @@ class PostForm extends React.Component {
         this.setState({[name]: event.target.value});
     };
 
-    submitForm = () => {
-        const comment = this.createPost();
-        this.props.onFormSubmit(comment)
+    submitForm = (isSuccess) => {
+        if(!isSuccess)
+            this.props.onFormSubmit(null);
+        else
+            this.props.onFormSubmit(this.createPost());
     };
 
     createPost = () => {
@@ -68,9 +70,15 @@ class PostForm extends React.Component {
                            multiline rowsMax={10} rows={5}
                            onChange={this.onFieldChange('body')}
                 />
-                <Button raised color="primary" className="formButton" onClick={this.submitForm}>
-                    Add Comment
-                </Button>
+                <div className="ctrlContainer">
+                    <Button raised color="primary" className="formButton" onClick={()=>this.submitForm(false)}>
+                        Cancel
+                    </Button>
+                    <Button raised color="primary" className="formButton" onClick={()=>this.submitForm(true)}>
+                        Add Post
+                    </Button>
+                </div>
+
             </form>
         )
 

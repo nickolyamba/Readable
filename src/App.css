@@ -84,6 +84,10 @@
     margin-top: 10px !important;
 }
 
+.marginBottom10{
+    margin-bottom: 10px;
+}
+
 .iconText{
     font-size: 18px !important;
 }
@@ -105,7 +109,7 @@
 
 .formButton{
     max-width: 200px;
-    margin-top: 20px;
+    margin: 10px 50px;
 }
 
 .formCard{
