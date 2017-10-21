@@ -11,7 +11,8 @@ import EditIcon from 'material-ui-icons/Edit';
 import { pink } from 'material-ui/colors';
 import VotingWidget from './VotingWidget';
 import CommentsCount from './CommentsCount';
-import {deleteEntity, editEntity} from '../actions/common_actions';
+import {deleteEntity} from '../actions/common_actions';
+import {flipDialog} from '../actions/dialog_actions';
 import { Redirect } from 'react-router-dom';
 
 const styles = theme => ({
@@ -39,12 +40,12 @@ class Entry extends React.Component{
     state = {isRedirect: false};
 
     redirectOnClick = () => {
-        this.setState({isRedirect: true});
+        if(!this.props.isDetailsView)
+            this.setState({isRedirect: true});
     };
 
     render(){
         const {entry, entityName, isDetailsView, classes, deleteEntity, editEntity} = this.props;
-
         if(this.state.isRedirect)
             return <Redirect push to={`/${entry.category}/${entry.id}`}/>;
 
@@ -66,7 +67,8 @@ class Entry extends React.Component{
                                                 onClick={() => deleteEntity(entry.id, entityName)} aria-label="Delete">
                                         <DeleteIcon/>
                                     </IconButton>
-                                    <IconButton className={classes.button} aria-label="Edit">
+                                    <IconButton className={classes.button}
+                                                onClick={() => editEntity({...entry})} aria-label="Edit">
                                         <EditIcon/>
                                     </IconButton>
                                 </div>
@@ -101,14 +103,17 @@ class Entry extends React.Component{
 
 const mapDispatchToProps = (dispatch) => ({
     deleteEntity: (entityId, entityName) => dispatch(deleteEntity(entityId, entityName)),
-    editEntity: (entityId, entityName) => dispatch(editEntity(entityId, entityName))
+    editEntity: (entity) => dispatch(flipDialog(entity))
 });
 
 Entry.propTypes = {
     entry: PropTypes.object,
     classes: PropTypes.object.isRequired,
     entityName: PropTypes.string.isRequired,
-    isDetailsView: PropTypes.bool.isRequired
+    isDetailsView: PropTypes.bool.isRequired,
+    deleteEntity: PropTypes.func.isRequired,
+    editEntity: PropTypes.func.isRequired,
+
 };
 
 export default withStyles(styles)(connect(null, mapDispatchToProps)(Entry));
