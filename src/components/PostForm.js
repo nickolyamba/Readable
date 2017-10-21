@@ -5,7 +5,10 @@ import Button from 'material-ui/Button';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Typography from 'material-ui/Typography';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v1'
+import uuid from 'uuid/v1';
+
+const maxRows = 20;
+const rowsBody = 2;
 
 class PostForm extends React.Component {
     state = {
@@ -67,7 +70,7 @@ class PostForm extends React.Component {
 
                 <TextField id="required" label="Body" placeholder="Body"
                            className="multLineTextField" margin="normal" required
-                           multiline rowsMax={10} rows={5}
+                           multiline rowsMax={maxRows} rows={rowsBody}
                            onChange={this.onFieldChange('body')}
                 />
                 <div className="ctrlContainer">
@@ -95,7 +98,7 @@ const mapStateToProps = ({categories}) => {
     const categoryArray = categories.entities ? Object.entries(categories.entities) : [];
     let nativeCategories = [];
     for(const obj of categoryArray){
-        if(Number.isInteger(parseInt(obj[0])))
+        if(Number.isInteger(parseInt(obj[0], 10)))
             nativeCategories.push(obj[1].name);
     }
     return {

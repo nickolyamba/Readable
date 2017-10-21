@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
-import uuid from 'uuid/v1'
+import uuid from 'uuid/v1';
+
+const maxRows = 20;
+const rowsBody = 3;
 
 class CommentForm extends React.Component {
     state = {
@@ -44,7 +47,7 @@ class CommentForm extends React.Component {
                 />
                 <TextField id="required" label="Body" placeholder="Body"
                            className="multLineTextField" margin="normal" required
-                           multiline rowsMax={10} rows={5}
+                           multiline rowsMax={maxRows} rows={rowsBody}
                            onChange={this.onFieldChange('body')}
                 />
                 <div className="ctrlContainer">
