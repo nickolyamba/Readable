@@ -114,7 +114,6 @@ const comments = (state={}, action) => {
 
         case EDIT_COMMENT:
             const{updatedEntity} = action;
-            console.log(updatedEntity);
             return{
                 ...state,
                 [updatedEntity.parentId]: {
