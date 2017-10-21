@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux'
 
-import {RECEIVE_POSTS, EDIT_POST, CHANGE_SORT_BY} from '../actions/post_actions';
+import {RECEIVE_POSTS, CHANGE_SORT_BY} from '../actions/post_actions';
 import {GET_COMMENTS} from '../actions/comment_actions';
 import {GET_CATEGORIES, CHANGE_CATEGORY} from '../actions/category_actions';
+import {FLIP_DIALOG} from '../actions/dialog_actions'
 import {UPDATE_POST_VOTE, UPDATE_COMM_VOTE, REMOVE_POST,
-        REMOVE_COMMENT, ADD_COMMENT, ADD_POST
+        REMOVE_COMMENT, ADD_COMMENT, ADD_POST, EDIT_POST, EDIT_COMMENT
 } from "../actions/common_actions";
 
 const posts = (state={}, action) => {
@@ -49,6 +50,18 @@ const posts = (state={}, action) => {
                             'voteScore': updatedVote
                         }
                     }
+            };
+
+        case EDIT_POST:
+            const{updatedEntity} = action;
+            return{
+                ...state,
+                'entities': {
+                    ...state.entities,
+                    [updatedEntity.id]: {
+                        ...updatedEntity
+                    }
+                }
             };
 
         case REMOVE_POST:
@@ -97,6 +110,19 @@ const comments = (state={}, action) => {
                             'voteScore': updatedVote
                         }
                     }
+            };
+
+        case EDIT_COMMENT:
+            const{updatedEntity} = action;
+            console.log(updatedEntity);
+            return{
+                ...state,
+                [updatedEntity.parentId]: {
+                    ...state[updatedEntity.parentId],
+                    [updatedEntity.id]: {
+                        ...updatedEntity
+                    }
+                }
             };
 
         case REMOVE_POST:
@@ -157,9 +183,12 @@ const categories = (state={}, action) => {
     switch(action.type){
         case GET_CATEGORIES:
             const {categories} = action;
+            const urlArr = window.location.href.split('/');
+            let initSelected = urlArr && urlArr.length >= 3 ? urlArr[3] : '';
+
             const allCategories = {name: 'All Categories', path: ''};
             return {
-                'entities': {allCategories, ...categories}, 'selected': ''
+                'entities': {allCategories, ...categories}, 'selected': initSelected
             };
         case CHANGE_CATEGORY:
             const {selected} = action;
@@ -171,6 +200,20 @@ const categories = (state={}, action) => {
     }
 };
 
+const dialog = (state={'entity': null}, action) => {
+    const {type, entity} = action;
+    switch(type){
+        case FLIP_DIALOG:
+            return {
+                ...state,
+                    'entity': entity
+            };
+
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
-    posts, comments, categories
+    posts, comments, categories, dialog
 })
