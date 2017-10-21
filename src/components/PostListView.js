@@ -29,7 +29,7 @@ class PostListView extends Component {
         const selectedCategory = this.props.match.params.category;
         return (
             <div>
-                <Typography type="title" gutterBottom align="center" color="secondary">
+                <Typography type="headline" gutterBottom align="center" color="secondary" className="marginBottom20">
                     List of Posts
                 </Typography>
                 <SortControl sortCategories={{vote: 'voteScore', date: 'timestamp'}}/>

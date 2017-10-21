@@ -9,6 +9,7 @@ import CardForm from './CardForm'
 import Button from 'material-ui/Button';
 import Collapse from 'material-ui/transitions/Collapse';
 import DialogForm from './DialogForm';
+import AddIcon from 'material-ui-icons/Add';
 
 class PostDetailsView extends Component {
     state = {expanded: false};
@@ -26,7 +27,7 @@ class PostDetailsView extends Component {
         const {post} = this.props;
         return (
             <div>
-                <Typography type="title" gutterBottom align="center" color="secondary">
+                <Typography type="headline" gutterBottom align="center" color="secondary">
                     Post Details
                 </Typography>
                 {post && !post.deleted &&
@@ -37,10 +38,14 @@ class PostDetailsView extends Component {
                         <Typography type="title" gutterBottom align="center" color="secondary">
                             Comments
                         </Typography>
-                        <Button onClick={this.handleCollapse} aria-expanded={this.state.expanded}
-                                color='primary'>
-                            Add Comment
-                        </Button>
+                        <div className="containerRight">
+                            <Typography type="title" gutterBottom align="center" color="secondary">
+                                Add Comment
+                            </Typography>
+                            <Button fab color='primary' onClick={this.handleCollapse} className="marginLeft10 marginBottom10">
+                                <AddIcon/>
+                            </Button>
+                        </div>
                     </div>
 
                     <Collapse in={this.state.expanded} transitionDuration="auto" unmountOnExit>
