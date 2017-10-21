@@ -120,3 +120,11 @@
 .maxWidth300 {
     width: 300px;
 }
+
+.pointer{
+    cursor: pointer;
+}
+
+.title{
+    font-size: 18px;
+}

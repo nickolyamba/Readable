@@ -17,7 +17,6 @@ import { Redirect } from 'react-router-dom';
 
 const styles = theme => ({
     card: {
-        cursor: 'pointer',
         marginBottom: '20px',
         padding: '0px'
     },
@@ -55,13 +54,13 @@ class Entry extends React.Component{
                 <Card className={classes.card}>
                     <CardHeader
                         avatar={
-                            <Avatar className={classes.avatar} onClick={this.redirectOnClick}>
+                            <Avatar className="pointer" onClick={this.redirectOnClick}>
                                 {entry.author && entry.author.length > 0 ? entry.author[0].toUpperCase() : '?'}
                             </Avatar>
                         }
                         title={
                             <div className='containerSpread'>
-                                <span onClick={this.redirectOnClick}>{entry.title}</span>
+                                <span onClick={this.redirectOnClick} className="pointer title">{entry.title}</span>
                                 <div>
                                     <IconButton className={classes.button}
                                                 onClick={() => deleteEntity(entry.id, entityName)} aria-label="Delete">
@@ -75,12 +74,12 @@ class Entry extends React.Component{
 
                             </div>
                         }
-                        subheader = {<span onClick={this.redirectOnClick}>
+                        subheader = {<span onClick={this.redirectOnClick} className="pointer">
                             {`Posted by ${entry.author} on ${new Date(entry.timestamp).toLocaleString()}`}
                                     </span>}
                     />
 
-                    <CardContent onClick={this.redirectOnClick}>
+                    <CardContent onClick={this.redirectOnClick} className="pointer">
                         <Typography noWrap={!isDetailsView} type="body1" color="default">
                             {entry.body}
                         </Typography>
