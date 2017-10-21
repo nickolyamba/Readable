@@ -8,6 +8,7 @@ import { changeCategory } from '../actions/category_actions';
 import CardForm from './CardForm'
 import Button from 'material-ui/Button';
 import Collapse from 'material-ui/transitions/Collapse';
+import DialogForm from './DialogForm';
 
 class PostDetailsView extends Component {
     state = {expanded: false};
@@ -45,7 +46,7 @@ class PostDetailsView extends Component {
                     <Collapse in={this.state.expanded} transitionDuration="auto" unmountOnExit>
                         <CardForm parentId={post.id} closeCollapse={() => this.handleCollapse()}/>
                     </Collapse>
-
+                    <DialogForm/>
                     <CommentList postId={post.id}/>
                 </div>
                 }

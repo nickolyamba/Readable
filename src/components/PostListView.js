@@ -9,6 +9,7 @@ import CardForm from './CardForm'
 import Button from 'material-ui/Button';
 import Collapse from 'material-ui/transitions/Collapse';
 import AddIcon from 'material-ui-icons/Add';
+import DialogForm from './DialogForm';
 
 class PostListView extends Component {
     state = {expanded: false};
@@ -44,6 +45,7 @@ class PostListView extends Component {
                     <CardForm closeCollapse={() => this.handleCollapse()}/>
                 </Collapse>
                 <PostList selectedCategory={selectedCategory}/>
+                <DialogForm/>
             </div>
         );
     }
