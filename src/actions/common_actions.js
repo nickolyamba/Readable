@@ -27,6 +27,11 @@ const createLocalEntity = (newEntity, entityName) => ({
     entity: newEntity,
 });
 
+const updateLocalEntity = (updatedEntity, entityName) => ({
+    type: entityName === 'posts' ? EDIT_POST : EDIT_COMMENT,
+    updatedEntity
+});
+
 const updateVote = (voteChange, entity, entityName) => (dispatch) => (
     ForumAPI.updatePOST(entityName, entity.id, {option : voteChange})
         .then(updatedEntity => dispatch(updateLocalVote(updatedEntity, entityName)))
@@ -42,9 +47,12 @@ const creteEntity = (entity, entityName) => (dispatch) => (
         .then(updatedEntity => dispatch(createLocalEntity(updatedEntity, entityName)))
 );
 
-const editEntity = (entityId, entityName) => (dispatch) => (
-    {}
-);
+const editEntity = (entity, entityName) => (dispatch) => {
+    const editedProps = entityName === 'posts' ? {'title': entity.title, 'body': entity.body} :
+                                    {'timestamp': Date.now(), 'body': entity.body};
+    return ForumAPI.updatePUT(entityName, entity.id, editedProps)
+        .then(updatedEntity => dispatch(updateLocalEntity(updatedEntity, entityName)))
+};
 
 export {updateVote, deleteEntity, editEntity, creteEntity,
         UPDATE_POST_VOTE, UPDATE_COMM_VOTE,
