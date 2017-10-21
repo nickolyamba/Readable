@@ -55,7 +55,7 @@ class CommentForm extends React.Component {
                         Cancel
                     </Button>
                     <Button raised color="primary" className="formButton" onClick={()=>this.submitForm(true)}>
-                        Add Post
+                        Add Comment
                     </Button>
                 </div>
             </form>
