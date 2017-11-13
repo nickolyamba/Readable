@@ -1,5 +1,7 @@
 ### React Nanodegree Project #2: Readable
 
+![screenshot](https://user-images.githubusercontent.com/8766167/32708428-c2f20c4a-c7de-11e7-9ab9-167a6151a4fb.PNG)
+
 #### Installation Guide:
 1. Clone the project: `$ git clone https://github.com/nickolyamba/Readable.git`
 
@@ -38,6 +40,5 @@
     * Comments have buttons for editing or deleting that comment. Pressing the edit button opens an input form
     * Pressing `Add Comment` opens an input form for creating a new comment
     * All the data changes are synchronized with the server
-      
-![screenshot](https://user-images.githubusercontent.com/8766167/32708428-c2f20c4a-c7de-11e7-9ab9-167a6151a4fb.PNG)
+    
 
