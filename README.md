@@ -9,7 +9,7 @@
 
 4. Start the Node server at [http://localhost:3001](http://localhost:3001): `$ node server`
 
-4. Go back to the root and install the React project dependencies: `$ cd ..` `$ npm install`
+4. Go back to the root and install the React project dependencies: `$ cd readable` `$ npm install`
 
 
 #### Launching:
