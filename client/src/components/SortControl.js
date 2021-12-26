@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {changeSortBy} from '../actions/post_actions';
-import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
-import ArrowUpIcon from 'material-ui-icons/ArrowUpward';
-import ArrowDownIcon from 'material-ui-icons/ArrowDownward';
-import { pink } from 'material-ui/colors';
+import { withStyles } from '@mui/styles';
+import Button from '@mui/material/Button';
+import ArrowUpIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownIcon from '@mui/icons-material/ArrowDownward';
+import { pink } from '@mui/material/colors';
 
 const styles = theme => ({
     button: {

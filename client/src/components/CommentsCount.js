@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import Comment from 'material-ui-icons/Comment';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import Comment from '@mui/icons-material/Comment';
 
 class CommentsCount extends React.Component {
     render() {

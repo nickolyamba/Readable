@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import ThumbUp from 'material-ui-icons/ThumbUp';
-import ThumbDown from 'material-ui-icons/ThumbDown';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import ThumbUp from '@mui/icons-material/ThumbUp';
+import ThumbDown from '@mui/icons-material/ThumbDown';
 import {updateVote} from '../actions/common_actions';
 
 class VotingWidget extends React.Component {

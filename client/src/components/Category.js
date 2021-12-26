@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormHelperText, FormControl } from 'material-ui/Form';
-import Select from 'material-ui/Select';
+import { FormHelperText, FormControl } from '@mui/material/Form';
+import Select from '@mui/material/Select';
 
 class Category extends React.Component{
     render(){

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
-import uuid from 'uuid/v1';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { v1 as uuid } from 'uuid';
 
 const maxRows = 20;
 const rowsBody = 3;

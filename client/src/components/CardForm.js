@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import IconButton from 'material-ui/IconButton';
-import CloseIcon from 'material-ui-icons/Close';
-import Card from 'material-ui/Card';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Card from '@mui/material/Card';
 import {creteEntity} from '../actions/common_actions';
 import CommentForm from './CommentForm';
 import PostForm from './PostForm';

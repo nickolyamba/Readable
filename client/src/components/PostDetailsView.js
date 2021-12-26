@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import Entry from './Entry';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Typography from 'material-ui/Typography';
+import Typography from '@mui/material/Typography';
 import CommentList from './CommentList'
 import { changeCategory } from '../actions/category_actions';
 import CardForm from './CardForm'
-import Button from 'material-ui/Button';
-import Collapse from 'material-ui/transitions/Collapse';
+import Button from '@mui/material/Button';
+import Collapse from '@mui/material/Collapse';
 import DialogForm from './DialogForm';
-import AddIcon from 'material-ui-icons/Add';
+import AddIcon from '@mui/icons-material/Add';
 
 class PostDetailsView extends Component {
     state = {expanded: false};

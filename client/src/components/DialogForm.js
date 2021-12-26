@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import IconButton from 'material-ui/IconButton';
-import CloseIcon from 'material-ui-icons/Close';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import {editEntity} from '../actions/common_actions';
 import {flipDialog} from '../actions/dialog_actions';
-import Dialog, {DialogContent} from 'material-ui/Dialog';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
 import EditForm from "./EditForm";
 
 // sources used:
-// example from https://material-ui-next.com/demos/dialogs/
+// example from https://@mui/material-next.com/demos/dialogs/
 const body = 'body';
 const title = 'title';
 

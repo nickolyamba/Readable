@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
-import MenuItem from 'material-ui/Menu/MenuItem';
-import Typography from 'material-ui/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 
 const maxRows = 20;
 const rowsBody = 2;

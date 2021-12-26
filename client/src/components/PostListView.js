@@ -4,11 +4,11 @@ import SortControl from './SortControl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { changeCategory } from '../actions/category_actions';
-import Typography from 'material-ui/Typography';
+import Typography from '@mui/material/Typography';
 import CardForm from './CardForm'
-import Button from 'material-ui/Button';
-import Collapse from 'material-ui/transitions/Collapse';
-import AddIcon from 'material-ui-icons/Add';
+import Button from '@mui/material/Button';
+import Collapse from '@mui/material/Collapse';
+import AddIcon from '@mui/icons-material/Add';
 import DialogForm from './DialogForm';
 
 class PostListView extends Component {
@@ -20,7 +20,7 @@ class PostListView extends Component {
         this.props.updateCategory(category);
     }
 
-    // https://material-ui-next.com/demos/cards/
+    // https://@mui/material-next.com/demos/cards/
     handleCollapse = () => {
         this.setState({expanded: !this.state.expanded});
     };
